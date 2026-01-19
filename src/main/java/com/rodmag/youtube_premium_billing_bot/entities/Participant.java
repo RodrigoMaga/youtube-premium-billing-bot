@@ -22,6 +22,14 @@ public class Participant {
     public Participant() {
     }
 
+    public Participant(Long id, String name, String email, String phone, Integer order) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.order = order;
+    }
+
     public Long getId() {
         return id;
     }
