@@ -4,7 +4,7 @@ erDiagram
     PARTICIPANT o|--o{ PAYMENT : contains
 
     PARTICIPANT {
-        string id PK
+        long id PK
         string name
         string email
         string phone
@@ -12,8 +12,8 @@ erDiagram
     }
 
     PAYMENT {
-        string id PK
-        string participant_id FK
+        long id PK
+        long participant_id FK
         enum status "PAYED, NOT_PAYED"
         date month
         date year
