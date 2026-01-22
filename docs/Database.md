@@ -8,14 +8,14 @@ erDiagram
         string name
         string email
         string phone
-        int order
+        int participant_order
     }
 
     PAYMENT {
         long id PK
         long participant_id FK
-        enum status "PAYED, NOT_PAYED"
-        date month
-        date year
+        enum status "PAID, NOT_PAID"
+        int month
+        int year
     }
 ```

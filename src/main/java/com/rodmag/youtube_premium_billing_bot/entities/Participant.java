@@ -1,14 +1,18 @@
 package com.rodmag.youtube_premium_billing_bot.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Participant {
+@Table(name = "tb_participant")
+public class Participant implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +22,9 @@ public class Participant {
     private String email;
     private String phone;
     private Integer order;
+
+    @OneToMany(mappedBy = "participant")
+    private List<Payment> payments = new ArrayList<>();
 
     public Participant() {
     }
@@ -70,6 +77,10 @@ public class Participant {
         this.order = order;
     }
 
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Participant that)) return false;
@@ -81,14 +92,4 @@ public class Participant {
         return Objects.hashCode(id);
     }
 
-    @Override
-    public String toString() {
-        return "Participant{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", order=" + order +
-                '}';
-    }
 }
