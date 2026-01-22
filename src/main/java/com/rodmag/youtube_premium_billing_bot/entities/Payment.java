@@ -19,7 +19,7 @@ public class Payment implements Serializable {
     private Integer month;
     private Integer year;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "participant_id")
     private Participant participant;
 
