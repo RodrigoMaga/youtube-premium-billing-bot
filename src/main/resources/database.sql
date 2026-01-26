@@ -1,3 +1,4 @@
+DROP database IF EXISTS youtube_premium_billing_bot;
 CREATE DATABASE youtube_premium_billing_bot;
 USE youtube_premium_billing_bot;
 
@@ -33,10 +34,10 @@ CREATE TABLE payment (
     status ENUM('PAID', 'NOT_PAID') NOT NULL
         COMMENT 'Payment status: PAID or NOT_PAID',
 
-    payment_month TINYINT NOT NULL
+    payment_month INT NOT NULL
         COMMENT 'Month of the payment (1 to 12)',
 
-    payment_year SMALLINT NOT NULL
+    payment_year INT NOT NULL
         COMMENT 'Year of the payment (e.g. 2024)',
 
     CONSTRAINT uk_payment_participant_month
