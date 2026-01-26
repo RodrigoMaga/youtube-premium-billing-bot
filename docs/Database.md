@@ -4,18 +4,18 @@ erDiagram
     PARTICIPANT o|--o{ PAYMENT : contains
 
     PARTICIPANT {
-        string id PK
+        long id PK
         string name
         string email
         string phone
-        int order
+        int participant_order
     }
 
     PAYMENT {
-        string id PK
-        string participant_id FK
-        enum status "PAYED, NOT_PAYED"
-        date month
-        date year
+        long id PK
+        long participant_id FK
+        enum status "PAID, NOT_PAID"
+        int month
+        int year
     }
 ```

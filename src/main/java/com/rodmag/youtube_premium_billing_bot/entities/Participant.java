@@ -1,25 +1,47 @@
 package com.rodmag.youtube_premium_billing_bot.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Participant {
+@Table(name = "participant")
+public class Participant implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name",  nullable = false, length = 100)
     private String name;
+
+    @Column(name = "email",  nullable = false, length = 150)
     private String email;
+
+    @Column(name = "phone",  nullable = false, length = 20)
     private String phone;
-    private Integer order;
+
+    @Column(name = "billing_order",  nullable = false)
+    private Integer billingOrder;
+
+    @OneToMany(mappedBy = "participant")
+    private List<Payment> payments = new ArrayList<>();
 
     public Participant() {
+    }
+
+    public Participant(Long id, String name, String email, String phone, Integer billingOrder) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.billingOrder = billingOrder;
     }
 
     public Long getId() {
@@ -54,12 +76,16 @@ public class Participant {
         this.phone = phone;
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getBillingOrder() {
+        return billingOrder;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setBillingOrder(Integer billingOrder) {
+        this.billingOrder = billingOrder;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
     }
 
     @Override
@@ -80,7 +106,9 @@ public class Participant {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", order=" + order +
+                ", order=" + billingOrder +
                 '}';
     }
 }
+
+
