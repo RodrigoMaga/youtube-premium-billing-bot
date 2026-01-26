@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_participant")
+@Table(name = "payment")
 public class Payment implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -16,13 +16,19 @@ public class Payment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "payment_month", nullable = false)
     private Integer month;
+
+    @Column(name = "payment_year", nullable = false)
     private Integer year;
 
-    @ManyToOne
-    @JoinColumn(name = "participant_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "participant_id", nullable = false)
     private Participant participant;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
     private PaymentStatus paymentStatus;
 
     public Payment() {

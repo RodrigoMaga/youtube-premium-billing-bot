@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_participant")
+@Table(name = "participant")
 public class Participant implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -18,10 +18,17 @@ public class Participant implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name",  nullable = false, length = 100)
     private String name;
+
+    @Column(name = "email",  nullable = false, length = 150)
     private String email;
+
+    @Column(name = "phone",  nullable = false, length = 20)
     private String phone;
-    private Integer order;
+
+    @Column(name = "billing_order",  nullable = false)
+    private Integer billingOrder;
 
     @OneToMany(mappedBy = "participant")
     private List<Payment> payments = new ArrayList<>();
@@ -29,12 +36,12 @@ public class Participant implements Serializable {
     public Participant() {
     }
 
-    public Participant(Long id, String name, String email, String phone, Integer order) {
+    public Participant(Long id, String name, String email, String phone, Integer billingOrder) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.order = order;
+        this.billingOrder = billingOrder;
     }
 
     public Long getId() {
@@ -69,12 +76,12 @@ public class Participant implements Serializable {
         this.phone = phone;
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getBillingOrder() {
+        return billingOrder;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setBillingOrder(Integer billingOrder) {
+        this.billingOrder = billingOrder;
     }
 
     public List<Payment> getPayments() {
@@ -92,4 +99,16 @@ public class Participant implements Serializable {
         return Objects.hashCode(id);
     }
 
+    @Override
+    public String toString() {
+        return "Participant{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", order=" + billingOrder +
+                '}';
+    }
 }
+
+
